@@ -1,0 +1,44 @@
+{% extends "base.html" %} {% block content %}
+<h2>Painel de Tarefas</h2>
+<form method="POST">
+  {{ form.hidden_tag() }}
+  <p>{{ form.descricao.label }}<br />{{ form.descricao() }}</p>
+  <p>
+    {{ form.localizacao.label }}
+    <br />
+    {{ form.localizacao() }}
+    <br />
+    <small style="color: #555">
+      Podes escrever coordenadas (<i>lat,long</i>) ou o nome da rua/local (ex:
+      "Rua Augusta, Lisboa").
+    </small>
+  </p>
+
+  <p>{{ form.hora.label }}<br />{{ form.hora() }}</p>
+  <p>{{ form.prioridade.label }}<br />{{ form.prioridade() }}</p>
+  <p>{{ form.submit() }}</p>
+</form>
+<h3>As suas tarefas</h3>
+<ul>
+  {% for t in tarefas %}
+  <li>
+    {{ t.descricao }} | {{ t.localizacao }} | {{ t.hora }} | {{ t.prioridade }}
+    | {% if t.concluida %}
+    <b>Concluída</b>
+    {% else %}
+    <a href="{{ url_for('main.concluir_tarefa', tarefa_id=t.id) }}"
+      >Marcar como concluída</a
+    >
+    {% endif %} |
+    <a href="{{ url_for('main.editar_tarefa', tarefa_id=t.id) }}">Editar</a>
+    |
+    <a
+      href="{{ url_for('main.apagar_tarefa', tarefa_id=t.id) }}"
+      onclick="return confirm('Tem a certeza que quer apagar esta tarefa?')"
+      >Apagar</a
+    >
+  </li>
+  {% endfor %}
+</ul>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %} {% block content %}
+<h2>Editar Tarefa</h2>
+<form method="POST">
+  {{ form.hidden_tag() }}
+  <p>{{ form.descricao.label }}<br />{{ form.descricao() }}</p>
+  <p>{{ form.localizacao.label }}<br />{{ form.localizacao() }}</p>
+  <p>{{ form.hora.label }}<br />{{ form.hora() }}</p>
+  <p>{{ form.prioridade.label }}<br />{{ form.prioridade() }}</p>
+  <p>{{ form.submit(value='Atualizar') }}</p>
+</form>
+{% endblock %}

@@ -1,0 +1,37 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    background: #4a90e2;
+    color: #fff;
+    padding: 10px;
+}
+nav a {
+    color: #fff;
+    margin-right: 10px;
+    text-decoration: none;
+    font-weight: bold;
+}
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.mensagens {
+    list-style: none;
+    padding: 0;
+    color: #b22222;
+}
+form p {
+    margin-bottom: 10px;
+}
+ul {
+    padding-left: 20px;
+}
