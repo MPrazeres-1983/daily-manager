@@ -18,3 +18,7 @@ class TarefaForm(FlaskForm):
     hora = StringField('Hora prevista')
     prioridade = StringField('Prioridade')
     submit = SubmitField('Adicionar tarefa')
+
+class AcaoTarefaForm(FlaskForm):
+    """Formulário vazio para validar o token CSRF nas ações sobre tarefas."""
+    pass
