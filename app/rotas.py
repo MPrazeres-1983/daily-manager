@@ -9,7 +9,7 @@ from flask import (
 )
 from flask_login import login_user, logout_user, login_required, current_user
 from .models import Utilizador, Tarefa
-from .formularios import LoginForm, RegistoForm, TarefaForm
+from .formularios import LoginForm, RegistoForm, TarefaForm, AcaoTarefaForm
 from . import db, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
 import folium
@@ -24,7 +24,7 @@ def obter_coordenadas(endereco):
     url = "https://nominatim.openstreetmap.org/search"
     params = {"q": endereco, "format": "json"}
     resposta = requests.get(
-        url, params=params, headers={"User-Agent": "DailyManagerApp"}
+        url, params=params, headers={"User-Agent": "DailyManagerApp (contact: configure-your-own-identification)"}, timeout=8
     )
     if resposta.status_code == 200 and resposta.json():
         dados = resposta.json()[0]
@@ -121,12 +121,14 @@ def painel():
         return redirect(url_for("main.painel"))
 
     tarefas = Tarefa.query.filter_by(utilizador_id=current_user.id).all()
-    return render_template("painel.html", form=form, tarefas=tarefas)
+    return render_template("painel.html", form=form, tarefas=tarefas, acao_form=AcaoTarefaForm())
 
 
-@main.route("/concluir/<int:tarefa_id>")
+@main.route("/concluir/<int:tarefa_id>", methods=["POST"])
 @login_required
 def concluir_tarefa(tarefa_id):
+    if not AcaoTarefaForm().validate_on_submit():
+        return "Pedido inválido.", 400
     tarefa = Tarefa.query.get_or_404(tarefa_id)
     if tarefa.utilizador_id != current_user.id:
         flash("Acesso negado.")
@@ -136,9 +138,11 @@ def concluir_tarefa(tarefa_id):
     return redirect(url_for("main.painel"))
 
 
-@main.route("/apagar/<int:tarefa_id>")
+@main.route("/apagar/<int:tarefa_id>", methods=["POST"])
 @login_required
 def apagar_tarefa(tarefa_id):
+    if not AcaoTarefaForm().validate_on_submit():
+        return "Pedido inválido.", 400
     tarefa = Tarefa.query.get_or_404(tarefa_id)
     if tarefa.utilizador_id != current_user.id:
         flash("Acesso negado.")
