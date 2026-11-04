@@ -110,3 +110,8 @@ Desenvolvido por [Mário Prazeres](https://github.com/MPrazeres-1983).
 Sente-te à vontade para dar sugestões ou contribuir!
 
 ---
+
+
+## Segurança
+
+Antes de iniciar a aplicação, configura a variável de ambiente `SECRET_KEY` com pelo menos 32 caracteres aleatórios. A chave antiga fixa foi removida; em ambientes que a utilizaram, considera inválidas as sessões anteriores. Ações que alteram tarefas usam POST e proteção CSRF. Os pedidos de geocodificação têm timeout. Não disponibilizar a aplicação publicamente sem rever as condições de utilização do Nominatim, limites de pedidos, privacidade e backups.

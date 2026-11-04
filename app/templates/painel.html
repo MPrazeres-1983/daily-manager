@@ -22,7 +22,7 @@
 <ul>
   {% for t in tarefas %}
   <li>
-    {{ t.descricao }} | {{ t.localizacao }} | {{ t.hora }} | {{ t.prioridade }}
+    {{ t.descricao }} | {{ t.endereco }} | {{ t.hora }} | {{ t.prioridade }}
     | {% if t.concluida %}
     <b>Concluída</b>
     {% else %}
